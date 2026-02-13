@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>妙启财 EnlightenRich - 个人记账软件</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-coins"></i>
+                    妙启财
+                </h1>
+                <div class="balance-display">
+                    <span class="balance-label">余额</span>
+                    <span class="balance-value" id="totalBalance">¥0.00</span>
+                </div>
+            </div>
+            <div class="month-selector">
+                <button class="month-btn" id="prevMonth">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="current-month" id="currentMonth">2024年1月</span>
+                <button class="month-btn" id="nextMonth">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 日历视图 -->
+            <div class="calendar-section" id="calendarSection">
+                <div class="calendar-header">
+                    <div class="weekday">周一</div>
+                    <div class="weekday">周二</div>
+                    <div class="weekday">周三</div>
+                    <div class="weekday">周四</div>
+                    <div class="weekday">周五</div>
+                    <div class="weekday">周六</div>
+                    <div class="weekday">周日</div>
+                </div>
+                <div class="calendar-body" id="calendarBody">
+                    <!-- 日历单元格将由JS生成 -->
+                </div>
+            </div>
+
+            <!-- 统计视图 -->
+            <div class="statistics-section hidden" id="statisticsSection">
+                <div class="stats-header">
+                    <h2>收支统计</h2>
+                    <div class="time-range-selector">
+                        <button class="time-btn active" data-range="month">本月</button>
+                        <button class="time-btn" data-range="year">本年</button>
+                        <button class="time-btn" data-range="week">本周</button>
+                    </div>
+                </div>
+                
+                <div class="stats-summary">
+                    <div class="stat-card income">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">总收入</div>
+                            <div class="stat-value" id="totalIncome">¥0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-card expense">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">总支出</div>
+                            <div class="stat-value" id="totalExpense">¥0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-card balance">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">结余</div>
+                            <div class="stat-value" id="statsBalance">¥0.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-wrapper">
+                        <h3>收支趋势</h3>
+                        <div id="trendChart" class="chart"></div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <h3>收入分类</h3>
+                        <div id="incomeCategoryChart" class="chart"></div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <h3>支出分类</h3>
+                        <div id="expenseCategoryChart" class="chart"></div>
+                    </div>
+                </div>
+
+                <div class="export-section">
+                    <button class="export-btn" id="exportData">
+                        <i class="fas fa-download"></i> 导出数据
+                    </button>
+                </div>
+            </div>
+
+            <!-- 设置视图 -->
+            <div class="settings-section hidden" id="settingsSection">
+                <h2>数据管理</h2>
+                
+                <div class="settings-group">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <i class="fas fa-save"></i>
+                            <span>备份数据</span>
+                        </div>
+                        <button class="setting-btn" id="backupData">
+                            <i class="fas fa-download"></i> 导出
+                        </button>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <i class="fas fa-folder-open"></i>
+                            <span>恢复数据</span>
+                        </div>
+                        <button class="setting-btn" id="restoreData">
+                            <i class="fas fa-upload"></i> 导入
+                        </button>
+                        <input type="file" id="restoreFile" accept=".json" style="display: none;">
+                    </div>
+                    
+                    <div class="setting-item danger">
+                        <div class="setting-info">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>清空所有数据</span>
+                        </div>
+                        <button class="setting-btn danger" id="clearData">
+                            <i class="fas fa-trash"></i> 清空
+                        </button>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h3>关于</h3>
+                    <p>妙启财 EnlightenRich v1.0.0</p>
+                    <p>专业的个人记账软件</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部导航栏 -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-page="calendar">
+                <i class="fas fa-calendar-alt"></i>
+                <span>日历</span>
+            </button>
+            <button class="nav-item" data-page="statistics">
+                <i class="fas fa-chart-pie"></i>
+                <span>统计</span>
+            </button>
+            <button class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>设置</span>
+            </button>
+        </nav>
+
+        <!-- 浮动添加按钮 -->
+        <button class="fab-add" id="addRecordBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- 添加记录弹窗 -->
+        <div class="modal-overlay hidden" id="recordModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">添加记录</h3>
+                    <button class="modal-close" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="type-selector" id="typeSelector">
+                    <button class="type-btn active" data-type="expense">
+                        <i class="fas fa-minus-circle"></i> 支出
+                    </button>
+                    <button class="type-btn" data-type="income">
+                        <i class="fas fa-plus-circle"></i> 收入
+                    </button>
+                </div>
+
+                <form class="record-form" id="recordForm">
+                    <div class="form-group">
+                        <label>金额</label>
+                        <input type="number" id="amount" placeholder="0.00" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>分类</label>
+                        <select id="category" required>
+                            <option value="">请选择分类</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>备注</label>
+                        <input type="text" id="remark" placeholder="可选备注">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">保存</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 日期详情弹窗 -->
+        <div class="modal-overlay hidden" id="dayDetailModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="detailDate">2024年1月1日</h3>
+                    <button class="modal-close" id="closeDetailModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="day-summary" id="daySummary">
+                    <div class="day-stat">
+                        <span class="label">收入</span>
+                        <span class="income-value">¥0.00</span>
+                    </div>
+                    <div class="day-stat">
+                        <span class="label">支出</span>
+                        <span class="expense-value">¥0.00</span>
+                    </div>
+                </div>
+                
+                <div class="day-records" id="dayRecords">
+                    <!-- 记录列表 -->
+                </div>
+                
+                <button class="add-day-record-btn" id="addDayRecord">
+                    <i class="fas fa-plus"></i> 添加记录
+                </button>
+            </div>
+        </div>
+
+        <!-- 删除确认弹窗 -->
+        <div class="modal-overlay hidden" id="confirmModal">
+            <div class="modal-content confirm-modal">
+                <p id="confirmMessage">确定要删除这条记录吗？</p>
+                <div class="confirm-buttons">
+                    <button class="cancel-btn" id="cancelConfirm">取消</button>
+                    <button class="confirm-btn" id="confirmAction">确定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提示消息 -->
+        <div class="toast hidden" id="toast">
+            <span id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="data.js"></script>
+    <script src="chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
