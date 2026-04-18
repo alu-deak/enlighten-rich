@@ -1,3 +1,5 @@
+![Stone Badge](https://stone.professorlee.work/api/stone/alu-deak/enlighten-rich)
+
 # 妙启财 EnlightenRich
 
 一款专业的个人记账软件，采用原生 HTML + CSS + JavaScript 开发。
@@ -34,44 +36,29 @@
 - 首页显示总余额
 
 ## 技术栈
-
-- **前端**: HTML5 + CSS3 + JavaScript (ES6+)
-- **图标**: Font Awesome 6.4
-- **图表**: ECharts 5.4
-- **存储**: localStorage
+- 前端 : HTML5 + CSS3 + JavaScript (ES6+)
+- 图标 : Font Awesome 6.4
+- 图表 : ECharts 5.4
+- 存储 : localStorage
 
 ## 主题配色
-
 - 主色（黄色）: #FFC107
 - 收入色: #4CAF50
 - 支出色: #F44336
 
 ## 项目结构
 
-```
-EnlightenRich/
-├── index.html    # 主页面
-├── styles.css    # 样式文件
-├── app.js       # 核心逻辑
-├── chart.js     # 图表配置
-├── data.js      # 数据管理
-└── README.md    # 说明文档
-```
-
 ## 使用方法
-
-1. 直接在浏览器中打开 `index.html`
+1. 直接在浏览器中打开 index.html
 2. 点击右下角"+"按钮添加记录
 3. 点击日历中的日期查看当天记录
 4. 点击底部"统计"查看数据分析
 5. 点击底部"设置"进行数据备份/恢复
 
 ## 数据说明
-
 - 所有数据保存在浏览器 localStorage 中
 - 更换浏览器或清除缓存将丢失数据
 - 建议定期使用"设置"中的备份功能导出数据
 
 ## 版本
-
 v1.0.0
