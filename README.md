@@ -1,5 +1,7 @@
 ![Stone Badge](https://stone.professorlee.work/api/stone/alu-deak/enlighten-rich)
 
+网络上说说就得了，现实中谁不想急头白脸的在readme里养一只石墩子做宠物（
+
 # 妙启财 EnlightenRich
 
 一款专业的个人记账软件，采用原生 HTML + CSS + JavaScript 开发。
@@ -36,15 +38,15 @@
 - 首页显示总余额
 
 ## 技术栈
-- 前端 : HTML5 + CSS3 + JavaScript (ES6+)
-- 图标 : Font Awesome 6.4
-- 图表 : ECharts 5.4
-- 存储 : localStorage
+- **前端**: HTML5 + CSS3 + JavaScript (ES6+)
+- **图标**: Font Awesome 6.4
+- **图表**: ECharts 5.4
+- **存储**: localStorage
 
 ## 主题配色
-- 主色（黄色）: #FFC107
-- 收入色: #4CAF50
-- 支出色: #F44336
+- **主色（黄色）**: #FFC107
+- **收入色**: #4CAF50
+- **支出色**: #F44336
 
 ## 项目结构
 
